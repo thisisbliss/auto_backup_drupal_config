@@ -1,0 +1,5 @@
+{
+    "name": "thisisbliss/auto_backup_drupal_config",
+    "description": "Automatically backup Drupal config from Platform.sh when deploying",
+    "require": {}
+}
