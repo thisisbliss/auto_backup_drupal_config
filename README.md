@@ -34,16 +34,24 @@ platform ssh
 ### Before Deploying the below changes - Backup Existing Drupal Config!
 
 - SSH to your platform production branch (feel free to try on a staging branch first)
-- Copy the contents of ```backup_drupal_config.sh``` and paste straight into the CLI
+- Copy the contents of ```backup_drupal_config.sh``` and paste straight into the Platform CLI
 - Follow the instructions to download your config
 
 ### Add to composer packages
 **Prefix with DDEV if using DDEV!**
 
-Add the packagist repository if missing:
+Add the Gitlab repository if missing: **During Beta Testing**
+```
+composer config repositories.auto_backup_drupal_config vcs https://github.com/thisisbliss/auto_backup_drupal_config
+```
+
+
+~~
+Add the packagist repository if missing: **After Beta Testing**
 ```
 composer config repositories.asset-packagist composer https://asset-packagist.org
 ```
+~~
 Add the package:
 ```
 composer require thisisbliss/auto_backup_drupal_config:^0.1.0@beta
@@ -90,7 +98,7 @@ hooks:
 ```
 
 ### Setup Google Chat Messages
-Set platform environment variables to receive google chat messages, when changes are found.
+Set platform environment variables to receive google chat messages (when changes are found).
 
 - Get a Google chat Webhook: Within Chat, Select space>Apps and integrations>Add Webhook
 - On Platform, set environment variable ```env:GOOGLE_CHAT_WEBHOOK``` with the new webhook

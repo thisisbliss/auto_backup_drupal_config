@@ -74,7 +74,7 @@ else # drush output ok
       download_instructions="${download_instructions}./drupal_config_from_platform/${config_folder_name}/update_sync_folder.sh\n"
 
     else # no mount defined, config was backed up to /tmp
-      download_instructions="mkdir ./drupal_config_from_platform\n"
+      download_instructions="mkdir -p ./drupal_config_from_platform\n"
       download_instructions="${download_instructions}rsync -avz \$(platform ssh --environment=${PLATFORM_BRANCH} --pipe):$config_path/ ./drupal_config_from_platform/${config_folder_name}\n"
       download_instructions="${download_instructions}chmod +x ./drupal_config_from_platform/${config_folder_name}/update_sync_folder.sh\n"
       download_instructions="${download_instructions}./drupal_config_from_platform/${config_folder_name}/update_sync_folder.sh\n"
