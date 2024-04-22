@@ -46,6 +46,7 @@ composer config repositories.auto_backup_drupal_config vcs https://github.com/th
 ```
 
 ~~Add the packagist repository if missing:~~
+
 ~~composer config repositories.asset-packagist composer https://asset-packagist.org~~
 
 Add the package:
