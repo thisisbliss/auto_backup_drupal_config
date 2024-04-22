@@ -45,8 +45,9 @@ Add the Gitlab repository if missing:
 composer config repositories.auto_backup_drupal_config vcs https://github.com/thisisbliss/auto_backup_drupal_config
 ```
 
-~~Add the packagist repository if missing: 
-composer config repositories.asset-packagist composer https://asset-packagist.org~~
+~~Add the packagist repository if missing:~~
+~~composer config repositories.asset-packagist composer https://asset-packagist.org~~
+
 Add the package:
 ```
 composer require thisisbliss/auto_backup_drupal_config:^0.1.0@beta
