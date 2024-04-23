@@ -53,6 +53,7 @@ if [ "$notify_google_chat" = "test_google_chat" ]; then
     chat_json="{\"text\":\"${chat}\"}"
     echo -e "Sending Google Chat Message..."
     curl -X POST -H "Content-Type: application/json" -d "${chat_json}" "${GOOGLE_CHAT_WEBHOOK}"
+    exit 0 # exit with success
 fi
 
 
