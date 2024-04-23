@@ -108,7 +108,10 @@ platform ssh
 ## Revision History
 
 ### 0.1.0-Beta
-Initial Release, working with Platform.sh and Drupal (not Multisite)
+- Initial Release, working with Platform.sh and Drupal (not Multisite)
+
+### dev-main (latest changes)
+- send a test google chat message with parameter test_google_chat
 
 ## Copyright 2024 Bliss Digital Ltd
 This program is free software: you can redistribute it and/or modify
