@@ -36,6 +36,26 @@ else
   backup_mount_exists=true
 fi
 
+# --- Send a Test Google Chat Message ---
+if [ "$notify_google_chat" = "test_google_chat" ]; then
+    if [ -z "$GOOGLE_CHAT_WEBHOOK" ]; then
+        echo -e "${red} Unable to send message to google chat. Set platform.sh environment variable 'env:GOOGLE_CHAT_WEBHOOK' to the chat webhook first. ${end}"
+    fi
+
+    chat=""
+    if [ -n "$GOOGLE_CHAT_PROJECT" ]; then 
+      chat="${chat}*${GOOGLE_CHAT_PROJECT}*\n\n" # Frendly project name
+    fi
+
+    chat="${chat}*Test Google Chat Message from ${PLATFORM_ENVIRONMENT_TYPE}*\n\n"
+    chat="${chat}_Project: *${PLATFORM_PROJECT}*  Branch: *${PLATFORM_BRANCH}*_\n\n"
+    chat="${chat}\n"
+    chat_json="{\"text\":\"${chat}\"}"
+    echo -e "Sending Google Chat Message..."
+    curl -X POST -H "Content-Type: application/json" -d "${chat_json}" "${GOOGLE_CHAT_WEBHOOK}"
+fi
+
+
 # --- Check Config, backup + send/display results ---
 drush_output=$(drush config:status 2>&1)
 

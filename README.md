@@ -2,7 +2,7 @@
 Never lose Drupal config again!
 
 Solve the problem of pushing/deploying a git repository (with Drupal config) to platform.sh, then
-loosing existing Drupal config changes. 
+losing existing Drupal config changes. 
 
 Automatically creates backups of Drupal config changes on Platform, then sends a google chat message with the commands to download to your local project environment. 
 
@@ -55,7 +55,7 @@ composer require thisisbliss/auto_backup_drupal_config:^0.1.0@beta
 ```
 
 ### Update platform.app.yaml to run the backup script
-Add a mount for a cleaner way to backup and download backups.
+Add a mount for a cleaner way to download backups.
 ```
 mounts:
     '/drupal_config_backups':
@@ -67,7 +67,7 @@ Run the backup during deploy.
 
 **Insert new deploy code before 'drush config-import'.**
 
-Sending a message to google chat is optional, just remove 'send_google_chat' to skip that step.
+Sending a message to google chat is optional, just remove 'send_google_chat' if not required.
 ```
 hooks:
     build:
@@ -79,7 +79,7 @@ hooks:
 
         # --- Backup [Production] config changes before importing config ---
         echo " "
-        if [ "$PLATFORM_ENVIRONMENT_TYPE" = "production" ]; then    # test on staging with "development", otherwise "production"
+        if [ "$PLATFORM_ENVIRONMENT_TYPE" = "production" ]; then    # test on staging with "development"
             /app/vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh send_google_chat
         else
             echo "Platform environment type: $PLATFORM_ENVIRONMENT_TYPE (Drupal config not backed-up for this environment type)"
@@ -88,7 +88,7 @@ hooks:
         .... drush -y config-import ...
 ```
 
-### Update the projects .gitignore
+### Update the project's .gitignore
 ```
 # ignore config downloaded from platform
 /drupal_config_from_platform
@@ -101,8 +101,10 @@ Set platform environment variables to receive google chat messages (when changes
 - On Platform, set environment variable ```env:GOOGLE_CHAT_WEBHOOK``` with the new webhook
 - And environment variable ```env:GOOGLE_CHAT_PROJECT``` for a friendly project name. e.g. "Bliss-customer-x", instead of the referring to less helpful project IDs
 - Redeploy the Platform project
-
-
+```
+platform ssh 
+./vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh test_google_chat
+```
 ## Revision History
 
 ### 0.1.0-Beta
