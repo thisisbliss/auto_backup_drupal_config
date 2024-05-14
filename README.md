@@ -22,11 +22,11 @@ So, after receiving a message, just paste the commands to your local CLI. Then a
 - Follow instructions to download to development folder '.drupal_config_from_platform' and your development's config/sync folder
 
 ## Running a backup manually
-Setup a local alias command, to backup config changes on platform more easily.
+Setup a local alias
 ```
 alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh'"
 ```
-*Check the main environment name is main!
+*Check if the main environment name is 'main'!
 
 Backup changes
 ```
