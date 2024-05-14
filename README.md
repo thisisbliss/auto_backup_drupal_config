@@ -22,11 +22,17 @@ So, after receiving a message, just paste the commands to your local CLI. Then a
 - Follow instructions to download to development folder '.drupal_config_from_platform' and your development's config/sync folder
 
 ## Running a backup manually
-SSH to the platform environment and run the backup
+Setup a local alias command, to backup config changes on platform more easily.
 ```
-platform ssh 
-./vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh
+alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh'"
 ```
+*Check the main environment name is main!
+
+Backup changes
+```
+backup_config
+```
+
 
 ## Configuration
 - If the Drupal "config sync" folder isn't config/sync, change variable "drupal_config_sync_path" in backup_drupal_config.sh
@@ -111,7 +117,8 @@ platform ssh
 - Initial Release, working with Platform.sh and Drupal (not Multisite)
 
 ### dev-main (latest changes)
-- send a test google chat message with parameter test_google_chat
+- send a test google chat message by using parameter test_google_chat
+- compare new drupal config about to be imported, before reporting/backing up as "lost config"
 
 ## Copyright 2024 Bliss Digital Ltd
 This program is free software: you can redistribute it and/or modify
