@@ -22,17 +22,21 @@ So, after receiving a message, just paste the commands to your local CLI. Then a
 - Follow instructions to download to development folder '.drupal_config_from_platform' and your development's config/sync folder
 
 ## Running a backup manually
-Setup a local alias
+1. Setup a local alias
 ```
 alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh'"
 ```
 *Check if the main environment name is 'main'!
 
-Backup changes
+2. Backup changes
 ```
 backup_config
 ```
 
+Otherwise, run directly within your platform environment
+```
+./vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh
+```
 
 ## Configuration
 - If the Drupal "config sync" folder isn't config/sync, change variable "drupal_config_sync_path" in backup_drupal_config.sh
@@ -74,15 +78,18 @@ Run the backup during deploy.
 **Insert new deploy code before 'drush config-import'.**
 
 Sending a message to google chat is optional, just remove 'send_google_chat' if not required.
-```
+
 hooks:
     build:
         ... existing build commands ...
+        ```
         chmod +x /app/vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh
+        ```
 
     deploy:
-        ... existing deploy commands like: drush -y cache-rebuild, drush -y updatedb ...
+        ... existing deploy commands ...
 
+```
         # --- Backup [Production] config changes before importing config ---
         echo " "
         if [ "$PLATFORM_ENVIRONMENT_TYPE" = "production" ]; then    # test on staging with "development"
@@ -90,9 +97,8 @@ hooks:
         else
             echo "Platform environment type: $PLATFORM_ENVIRONMENT_TYPE (Drupal config not backed-up for this environment type)"
         fi          
-
-        .... drush -y config-import ...
 ```
+        .... drush -y deploy or drush -y config-import ...
 
 ### Update the project's .gitignore
 ```
