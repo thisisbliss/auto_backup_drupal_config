@@ -23,11 +23,10 @@ So, after receiving a message, just paste the commands to your local CLI. Then a
 
 ## Running a backup manually
 1. Setup a local alias
+* assumes the production environment is 'main'
 ```
 alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh'"
 ```
-*Check if the main environment name is 'main'!
-
 2. Backup changes
 ```
 backup_config
@@ -79,17 +78,16 @@ Run the backup during deploy.
 
 Sending a message to google chat is optional, just remove 'send_google_chat' if not required.
 
+```
 hooks:
     build:
         ... existing build commands ...
-        ```
         chmod +x /app/vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh
-        ```
+        
 
     deploy:
         ... existing deploy commands ...
 
-```
         # --- Backup [Production] config changes before importing config ---
         echo " "
         if [ "$PLATFORM_ENVIRONMENT_TYPE" = "production" ]; then    # test on staging with "development"
@@ -97,8 +95,9 @@ hooks:
         else
             echo "Platform environment type: $PLATFORM_ENVIRONMENT_TYPE (Drupal config not backed-up for this environment type)"
         fi          
-```
+
         .... drush -y deploy or drush -y config-import ...
+```
 
 ### Update the project's .gitignore
 ```
