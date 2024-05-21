@@ -21,21 +21,22 @@ So, after receiving a message, just paste the commands to your local CLI. Then a
 - Optionally sends a download instructions to a google chat space, when changes found
 - Follow instructions to download to development folder '.drupal_config_from_platform' and your development's config/sync folder
 
-## Running a backup manually
-1. Setup a local alias
-* assumes the production environment is 'main'
+## Manually Backup Drupal Config
+run directly on platform environment
 ```
-alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh'"
+platform ssh
 ```
-2. Backup changes
-```
-backup_config
-```
-
-Otherwise, run directly within your platform environment
 ```
 ./vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh
 ```
+
+Or setup a local alias
+```
+alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh'"
+backup_config
+```
+* assumes 'main' is your production branch
+
 
 ## Configuration
 - If the Drupal "config sync" folder isn't config/sync, change variable "drupal_config_sync_path" in backup_drupal_config.sh
@@ -47,21 +48,21 @@ Otherwise, run directly within your platform environment
 - Follow the instructions to download your config
 
 ### Add to composer packages
-**Prefix with DDEV if using DDEV!**
 
 Add the Gitlab repository if missing:
 ```
-composer config repositories.auto_backup_drupal_config vcs https://github.com/thisisbliss/auto_backup_drupal_config
+ddev composer config repositories.auto_backup_drupal_config vcs https://github.com/thisisbliss/auto_backup_drupal_config
+```
+* Remove ddev prefix if not being used 
+
+Add the package:
+```
+ddev composer require thisisbliss/auto_backup_drupal_config:^0.1.0@beta
 ```
 
 ~~Add the packagist repository if missing:~~
 
 ~~composer config repositories.asset-packagist composer https://asset-packagist.org~~
-
-Add the package:
-```
-composer require thisisbliss/auto_backup_drupal_config:^0.1.0@beta
-```
 
 ### Update platform.app.yaml to run the backup script
 Add a mount for a cleaner way to download backups.
@@ -86,7 +87,7 @@ hooks:
         
 
     deploy:
-        ... existing deploy commands ...
+        ... existing commands - before config imported ...
 
         # --- Backup [Production] config changes before importing config ---
         echo " "
