@@ -22,7 +22,7 @@ So, after receiving a message, just paste the commands to your local CLI. Then a
 - Follow instructions to download to development folder '.drupal_config_from_platform' and your development's config/sync folder
 
 ## Manually Backup Drupal Config
-run directly on platform environment
+Run from any platform environment
 ```
 platform ssh
 ```
@@ -30,13 +30,13 @@ platform ssh
 ./vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh
 ```
 
-Or setup a local alias
+Or setup a local alias:
 ```
 alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh'"
 backup_config
 ```
 * assumes 'main' is your production branch
-
+    
 
 ## Configuration
 - If the Drupal "config sync" folder isn't config/sync, change variable "drupal_config_sync_path" in backup_drupal_config.sh
