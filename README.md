@@ -57,7 +57,7 @@ ddev composer config repositories.auto_backup_drupal_config vcs https://github.c
 
 Add the package:
 ```
-ddev composer require thisisbliss/auto_backup_drupal_config:^0.1.0@beta
+ddev composer require thisisbliss/auto_backup_drupal_config:^1.0
 ```
 
 ~~Add the packagist repository if missing:~~
@@ -121,6 +121,9 @@ platform ssh
 
 ### 0.1.0-Beta
 - Initial Release, working with Platform.sh and Drupal (not Multisite)
+### 1.0.0-Stable
+- Beta has been stable on 10+ sites for a few months.
+
 
 ### dev-main (latest changes)
 - send a test google chat message by using parameter test_google_chat
