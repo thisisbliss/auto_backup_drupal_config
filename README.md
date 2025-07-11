@@ -1,4 +1,4 @@
-# Automatically Backup Drupal Config when Deploying on Platform.sh + Download to the Local Development Environment
+# Automatic Drupal Config Backup for Platform.sh
 Never lose Drupal config again!
 
 Solve the problem of pushing/deploying a git repository (with Drupal config) to platform.sh, then
