@@ -129,7 +129,7 @@ platform ssh
 - send a test google chat message by using parameter test_google_chat
 - compare new drupal config about to be imported, before reporting/backing up as "lost config"
 
-## Copyright 2024 Bliss Digital Ltd
+## Copyright 2024-2025 Bliss Digital Ltd
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
