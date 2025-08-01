@@ -1,12 +1,12 @@
-# Automatic Drupal Config Backup for Platform.sh
+# Automated Config Backup During 'Drush Deploy' on Platform.sh
+# aka 'Config Checker'
 Never lose Drupal config again!
 
-Solve the problem of pushing/deploying a git repository (with Drupal config) to platform.sh, then
-losing existing Drupal config changes. 
+Solve the problem of deploying a git repository to platform.sh, then losing existing Drupal config changes.
 
-Automatically creates backups of Drupal config changes on Platform, then sends a google chat message with the commands to download to your local project environment. 
+Automatically creates backups of Drupal config changes on Platform, then sends a google chat message to your local project environment.
 
-So, after receiving a message, just paste the commands to your local CLI. Then a moment later, compare config changes with your config/sync folder (using a tool ike VS Code)
+Paste the commands included in the chat message to your local CLI, then compare config changes in your config/sync folder (great for Visual Studio Code)
 
 ## Prerequisites
 - The Platform.sh project is using Drupal 8+
@@ -18,10 +18,10 @@ So, after receiving a message, just paste the commands to your local CLI. Then a
 - Each backup folder is date+time labelled
 - Deletes old backups from over 30 days ago
 - Displays instructions how to download to your local development environment (e.g. DDEV)
-- Optionally sends a download instructions to a google chat space, when changes found
-- Follow instructions to download to development folder '.drupal_config_from_platform' and your development's config/sync folder
+- Optionally sends instructions to a google chat space, when changes found
+- Chat message includes instructions to download to a development folder named '.drupal_config_from_platform' and your development's config/sync folder
 
-## Manually Backup Drupal Config
+## How to Manually Backup Drupal Config
 Run from any platform environment
 ```
 platform ssh
@@ -36,14 +36,14 @@ alias backup_config="platform ssh -e main -- './vendor/thisisbliss/auto_backup_d
 backup_config
 ```
 * assumes 'main' is your production branch
-    
 
-## Configuration
-- If the Drupal "config sync" folder isn't config/sync, change variable "drupal_config_sync_path" in backup_drupal_config.sh
 
-### Before Deploying the below changes - Backup Existing Drupal Config!
+## How to Automatically Backup Drupal Config
+If the Drupal "config sync" folder isn't config/sync, change variable "drupal_config_sync_path" in backup_drupal_config.sh
 
-- SSH to your platform production branch (feel free to try on a staging branch first)
+### Before deploying the below changes: Backup Existing Drupal Config!
+
+- SSH to your platform production branch (will work on any branch)
 - Copy the contents of ```backup_drupal_config.sh``` and paste straight into the Platform CLI
 - Follow the instructions to download your config
 
@@ -53,7 +53,7 @@ Add the Gitlab repository if missing:
 ```
 ddev composer config repositories.auto_backup_drupal_config vcs https://github.com/thisisbliss/auto_backup_drupal_config
 ```
-* Remove ddev prefix if not being used 
+* Remove ddev prefix if not being used
 
 Add the package:
 ```
@@ -84,7 +84,7 @@ hooks:
     build:
         ... existing build commands ...
         chmod +x /app/vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh
-        
+
 
     deploy:
         ... existing commands - before config imported ...
@@ -95,7 +95,7 @@ hooks:
             /app/vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh send_google_chat
         else
             echo "Platform environment type: $PLATFORM_ENVIRONMENT_TYPE (Drupal config not backed-up for this environment type)"
-        fi          
+        fi
 
         .... drush -y deploy or drush -y config-import ...
 ```
@@ -114,7 +114,7 @@ Set platform environment variables to receive google chat messages (when changes
 - And environment variable ```env:GOOGLE_CHAT_PROJECT``` for a friendly project name. e.g. "Bliss-customer-x", instead of the referring to less helpful project IDs
 - Redeploy the Platform project
 ```
-platform ssh 
+platform ssh
 ./vendor/thisisbliss/auto_backup_drupal_config/backup_drupal_config.sh test_google_chat
 ```
 ## Revision History
