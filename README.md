@@ -1,5 +1,4 @@
 # Automated Config Backup During 'Drush Deploy' on Platform.sh
-# aka 'Config Checker'
 Never lose Drupal config again!
 
 Solve the problem of deploying a git repository to platform.sh, then losing existing Drupal config changes.
